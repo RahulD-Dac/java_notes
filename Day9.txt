@@ -1,0 +1,489 @@
+Day9
+==========================================================================================================================
+
+To creat any package , the statement which is used is as below:
+
+packege <package name>
+
+example of packegs :
+java.io;
+java.sql;
+java.util;
+java.lang;
+etc...
+
+To use any package we need to import that particular package in our program.
+java.lang package is imported by default and we dont need to import it explicitly.
+
+
+Demo of creating our own package.
+-- we will create one package with the name mypack.
+-- we will creat one class first inside mypack.
+-- we will creat another class Second inside mypack.
+-- we will import mypack inside our program and will use the First class.
+
+
+
+~
+package mypack;		//named as First.java
+public class First{
+	public void myFun(){
+		System.out.println("myFun of First");
+	}
+}
+~
+packege mypack; 		//It says whatever class we define here inside this file, all will belong to the package mypack.
+
+public class Second{
+	public void myFun(){
+		System.out.println("myFun of Second ");
+	}
+
+}
+class Third{
+	public void myFun(){
+		System.out.println("myFun of Third ");
+	}
+
+}
+~
+
+in linux:-
+-mkdir mypack
+-cd mypack(go to mypack folder)
+-First.java(Class first)				//first statement : package mypack;
+-Second.java(class Second, Class Third)		//first statement : package mypack;
+-cd..(come out of mypack folder)
+
+
+~
+import mypack.First;
+import mypack.Second;					//or also can written as import mypack.*;
+class UseMyPack{
+	public static void main(String args[]){
+		First f = new First();
+		f.myFun();
+		
+		Second s = new Secomd();
+		s.myFun();
+	}
+}
+
+~
+
+folder which contain the packge is 
+/home/etu-1/Desktop/mypack
+
+javac -cp <path to the folder where package is kept>:.UseMyPackDemo.java
+java -cp <path to the folder where package is kept>:.UseMyPackDemo
+
+jar cf mypack.jar/home/etu-1/Desktop/mypack
+
+
+(So finally OOPs concept XD)
+Inheritance:-
+	
+	Parent class => base class/Upper class
+	Child class =>  derived class/subclass
+
+~~~~
+class Cricketer{
+	String name;
+	String country;
+	int totMatches;
+
+	void setData(String name, String country, int totMatches;){
+	this.String name = name ;
+	this.String country =  country;
+	this.int totNoOfMatches = totMatches;
+	}
+
+	void printDetails(){
+	System.out.println(name);
+	System.out.println(country);
+	System.out.println(totMatches);
+	}
+}
+
+class Batsman extends Crickter{					//now Batsman is the childe class of Crickter.
+	int totRuns;
+	//setData(){}
+
+	void setTotRuns(int totRuns){
+		this.totRuns = totRuns;	
+	}
+	
+	void printTotRuns(){
+		System.out.println(totRuns);
+	}									//we can redefine the parant class method.
+}
+
+class Bowler extends Crickter{					//now Bowler is the childe class of Crickter.
+	int totWickets;
+	
+	void setTotWickets(int totWickets){
+		this.totWickets = totWickets;	
+	}
+	
+	void printTotWickets(){
+		System.out.println(totWickets);
+	}
+}
+
+class CricketDemo{
+	public static void amain(String args[]){
+		Crickter c1 = new Crickter();
+		c1.setDetails("Sachin","India",400);
+		c1.printDetails();
+		
+		Batsman bats1 = new Batsman();
+		bats1.setDetails("Rishabh Pant","India",27);	//will call parant class (Cricketer) set details()
+		bats1.setTotRuns(841);					//will call childe class (Batsman) seTotRuns()
+		bats1.printDetails();					//will print parant class prinDetails method	
+		bats1.printTotRuns();					//will print childe class printTotRuns()
+		
+		Bowler bowl1 = new Bowler();
+		bowl1.setDetails("Jasprit Bumrah","India",72);
+		bowl1.setTotWickets(121);
+		bowl1.printDetails();
+		bowl1.printTotWickets();
+	}
+}
+~~~~~
+Output:-
+Sachin
+India
+400
+Rishabh Pant
+India
+27
+841
+Jasprit Bumrah
+India
+72
+121
+~~~~~~
+class Batsman extends Crickter 
+	It says:
+	class batsman is the childe class of Crickter.
+	It will have all the properties(name ,country, totNoOfMatches) from its parant class i.e. Cricket and will have some of its own property.
+
+	Whenever we creat any object of Batsman class it will occupy space to store(name , country , totMatches, totRuns).
+
+	new Batsman();
+
+Inside of parant class we cannot access childe class members (data & method))
+
+- Constructor is never inherited.
+- Whenver any childe class object is created , along with childe constructor parant constructor is also called.
+	The order of constructor calling is always from parent class to childe class.
+-  
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class First{
+	int a;
+	
+	First(){
+		System.out.println("Zero-args const of first");
+		a = 1;
+	}
+}
+
+class Second extends first{
+	int b;
+	Second(){
+		System.outprintln("Zero-args const of second");
+		b = 2;
+	}
+}
+
+ConstructorcallingDemo{
+	public static void main(String args[]){
+		new Second();
+	}
+}	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Output:-
+Zero-args const of first
+Zero-args const of second
+
+
+=========================================================
+
+Method Overriding 
+-------------------
+
+Method of the parent class can be redefined in the childe class with the same name and signeture i.e. with the
+	same name and arguments. In the case of method overriding method name, argument type and number of arguments
+	everything will be same in the childe class.
+
+Example:
+~~~~~~~~
+class First{
+	void myFun(int x,int y){								//overridden method
+		System.out.println("myFun of the first");
+	}
+	
+	void anotherFun(int x){
+		System.out.println("anotherFun of First");
+	}
+}
+
+class Second extends First{
+	void myFun(int a,int y){								//overriding method
+		System.out.println("myFun of Second");
+	}
+}
+
+public class OverridingDemo{
+	public static void main(String args[]){
+		new First();
+		new Second();
+	}
+} 
+~~~~~~~~~~
+
+Difference between method overloding amd overriding 
+
+-- Overloading happens inside the same classs but overriding happens inside the childe class.
+-- In the case of overloading and overriding, in both the cases method will remain same but in the case of 
+	overloading signeture will differ mean arguments will differ but inthe case of overriding arguments will also 
+	remain same (type as well as no. of arguments).
+-- In case of method overriding, return can be change in the childe class but that return must be
+	subtype(covarinat type) of the return type in the parant class.
+
+~~~~~~~~~~~~~~~~
+class First{
+}
+
+class Second{
+}
+
+class Demo{
+	First myFun(){
+		First f = new First();
+		return f;
+	}
+}
+
+class Demo1 extends Demo{
+	Second myFun(){							//we can change the return but we must need it to be asubclass of upper First class
+		Second s = new Second();
+		s.myFun();
+	}
+}
+
+
+
+============================================================================================================================
+
+'super' keyword
+---------------
+
+'super' can be used to access the parant class members (data & methods) from the childe  
+
+~~~~~~~~~~~~~~~~~~~~~~~
+class First{
+	int num = 5;
+	
+	void myFun(int x,int y){						
+		System.out.println("myFun of the first");
+	}
+	
+	void anotherFun(int x){
+		System.out.println("anotherFun of First");
+	}
+}
+
+class Second extends First{
+	void myFun(int a,int y){
+		super.myFun(x,y);								
+		System.out.println("myFun of Second");
+		System.out.println(super.num);
+	}
+}
+
+public class OverridingDemo{
+	public static void main(String args[]){
+		new First();
+		Second s = new Second();
+		s.myFun(2,5)
+		s.anotherFun(5);
+	}
+}
+~~~~~~~~~~~~~~~~~~~~~~
+Output:-
+myFun of First 
+myFun of Second 
+5
+anotherFun of First 
+-----------------------
+Write for allrounder cricketer programm usng super.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+class Cricketer{
+	String name;
+	String country;
+	int totMatches;
+
+	void setDetails(String name, String country, int totMatches){
+	this.name = name ;
+	this.country =  country;
+	this.totMatches = totMatches;
+	}
+
+	void printDetails(){
+	System.out.println(name);
+	System.out.println(country);
+	System.out.println(totMatches);
+	}
+}
+
+class Batsman extends Cricketer{					
+	int totRuns;
+	//setData(){}
+
+	void setDetails(String name, String country, int totMatches,int totRuns){
+		super.setDetails(name,country,totMatches);
+		this.totRuns = totRuns;	
+	}
+	
+	void printTotRuns(){
+		super.printDetails();
+		System.out.println(totRuns);
+	}									
+}
+
+class Bowler extends Cricketer{					
+	int totWickets;
+	
+	void setDetails(String name, String country, int totMatches,int totWickets){
+		super.setDetails(name,country,totMatches);
+		this.totWickets = totWickets;	
+	}
+	
+	void printTotWickets(){
+		super.printDetails();
+		System.out.println(totWickets);
+	}
+}
+
+class Studentdemo{
+	public static void main(String args[]){
+		Cricketer c1 = new Cricketer();
+		c1.setDetails("Sachin","India",400);
+		c1.printDetails();
+		
+		Batsman bats1 = new Batsman();
+		bats1.setDetails("Rishabh Pant","India",27,841);							
+		bats1.printTotRuns();					
+		
+		Bowler bowl1 = new Bowler();
+		bowl1.setDetails("Jasprit Bumrah","India",72,121);
+		bowl1.printTotWickets();
+	}
+}
+~~~~~~~~~~~~~~~~~~~~~~
+Output:-
+
+Sachin
+India
+400
+Rishabh Pant
+India
+27
+841
+Jasprit Bumrah
+India
+72
+121
+-----------------------
+
+Constructor calling using 'super'
+
+-- Always super class zero-args/default constructor will be called by whenever any childe class object created.
+-- But we can change that default constructor call by using 'super'.
+-- If we call superclass constructor using super keyword, It should always be the very first statement inside the constructor.
+	
+-- Super and this cannot be used same time because they must use first time .
+~~~~~~~~~~~~~~~~~~~~~
+class First{
+	int a;
+	
+	First(){
+		System.out.println("0-args const of First");
+	First(int a){
+		System.out.println("1-args const of First");
+		this.a = a;
+	}
+}
+
+class Second extends First{
+	int b;
+	Second(){
+		System.out.println("0-args const of Second");
+	}
+	Second(int a){
+		System.out.println("1-args const of First");
+	}
+	Second(int a, int b){
+		this();
+		System.out.println("0-args const of First");
+	}
+	
+	void fun(){
+		super();									//Error Because the object is already created in above line for method calling so construction is alredy initiated na again craetion will give error..
+	}	
+}
+
+class ConstructorCallUsingSuperDemo{
+	public static void main(String args[]){
+		Second s = new Second(5,10);
+	}
+}
+~~~~~~~~~~~~~~~~~~~
+
+OUTPUT:-
+0-args const of First
+0-args const of Second
+2-args const of Second
+
+--------------------
+class First{
+	int a;
+	
+	First(){
+		System.out.println("0-args const of First");
+	}
+	First(int a){
+		System.out.println("1-args const of First");
+		this.a = a;
+	}
+}
+
+class Second extends First{
+	int b;
+	Second(){
+		System.out.println("0-args const of Second");
+	}
+	
+	Second(int a, int b){
+		super(a);											//superclass 1-arg constructor called
+		this.b = b;
+		System.out.println("2-args const of Second");
+	}
+}
+
+class Studentdemo{
+	public static void main(String args[]){
+		Second s = new Second(5,10);
+	}
+}
+
+~~~~~~~~~~~~~~~~~
+OUTPUT:-
+1-args const of First
+2-args const of Second
+-----------------
+
